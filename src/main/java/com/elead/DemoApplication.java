@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
  * @since
  */
 @SpringBootApplication
-@ComponentScan("com.elead")
+
 public class DemoApplication {
 
     public static void main(String[] args) {
