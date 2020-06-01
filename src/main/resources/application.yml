@@ -1,0 +1,56 @@
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: utf-8
+
+logging:
+  level:
+    com.elead: debug
+
+spring:
+  datasource:
+    #   数据源基本配置
+    url: jdbc:mysql://localhost:3306/test?characterEncoding=utf8
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+
+  cache:  ##配置 ehcache缓存
+  ehcache:
+    config:  ehcache.xml
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+#mybatis相关配置
+mybatis:
+  #当mybatis的xml文件和mapper接口不在相同包下时
+  #需要用mapperLocations属性指定xml文件的路径。
+  #*是个通配符，代表所有的文件，**代表所有目录下
+  mapper-locations: classpath*:/com/cloudtech/mapper/*.xml
+  #指定bean所在包
+  #在mapper.xml中可以使用别名而不使用类的全路径名
+  type-aliases-package: com.cloudtech.entity
+
+
+#通用mapper配置
+mapper:
+  identity: MYSQL   # 取主键的方式
+  before: false      # 主键递增
+  not-empty: true   # 按主键插入或更新时，是否判断字符串 != ''
+  style: camelhumpandlowercase  # 实体类与表中字段的映射方式：驼峰转带下划线的小写格式
+  wrap-keyword: '{0}'   # 自动配置关键字，配置后不需要使用 @Column 指定别名
+  safe-delete: true   # 删除时必须设置查询条件
+  safe-update: true   # 更新时必须设置查询条件
+  use-java-type: true   # 是否映射Java基本数据类型
+  mappers: tk.mybatis.mapper.common.Mapper
+
+
+#pagehelper分页插件
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
